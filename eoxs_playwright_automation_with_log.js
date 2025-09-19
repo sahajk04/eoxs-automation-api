@@ -25,11 +25,12 @@ const CONFIG = {
         password: process.env.EOXS_PASSWORD || 'Eoxs12345!'
     },
     ticketDetails: {
-        title: process.env.EMAIL_SUBJECT || process.argv.find(arg => arg.startsWith('--title='))?.split('=')[1] || 'Sample',
-        customer: process.env.EMAIL_CUSTOMER || process.argv.find(arg => arg.startsWith('--customer='))?.split('=')[1] || 'Discount Pipe & Steel', // Will be extracted from customer email domain
+        // These will be set dynamically in the constructor
+        title: 'Sample',
+        customer: 'Discount Pipe & Steel',
         assignedTo: 'Sahaj Katiyar', // For Ownership field (during creation) and Assigned To field (during edit)
-        description: process.env.EMAIL_BODY || process.argv.find(arg => arg.startsWith('--description='))?.split('=')[1] || '',
-        logNote: process.env.EMAIL_BODY || process.argv.find(arg => arg.startsWith('--lognote='))?.split('=')[1] || 'Email received from customer',
+        description: '',
+        logNote: 'Email received from customer',
     },
     selectors: {
         // Login selectors
@@ -69,6 +70,29 @@ class EOXSPlaywrightAutomationWithLog {
         this.context = null;
         this.page = null;
         this.ticketId = null;
+        
+        // Update ticket details from environment variables (set by API)
+        this.updateTicketDetailsFromEnv();
+    }
+    
+    updateTicketDetailsFromEnv() {
+        // Update CONFIG with current environment variables
+        if (process.env.EMAIL_SUBJECT) {
+            CONFIG.ticketDetails.title = process.env.EMAIL_SUBJECT;
+        }
+        if (process.env.EMAIL_CUSTOMER) {
+            CONFIG.ticketDetails.customer = process.env.EMAIL_CUSTOMER;
+        }
+        if (process.env.EMAIL_BODY) {
+            CONFIG.ticketDetails.description = process.env.EMAIL_BODY;
+            CONFIG.ticketDetails.logNote = process.env.EMAIL_BODY;
+        }
+        
+        console.log('📋 Updated ticket details from environment:', {
+            title: CONFIG.ticketDetails.title,
+            customer: CONFIG.ticketDetails.customer,
+            assignedTo: CONFIG.ticketDetails.assignedTo
+        });
     }
 
     async init() {
