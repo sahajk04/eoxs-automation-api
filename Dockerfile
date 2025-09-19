@@ -4,14 +4,14 @@ FROM mcr.microsoft.com/playwright:v1.40.0-focal
 # Set working directory
 WORKDIR /app
 
+# Install curl for healthcheck
+RUN apt-get update && apt-get install -y curl && rm -rf /var/lib/apt/lists/*
+
 # Copy package files
 COPY package*.json ./
 
-# Install dependencies using npm install (more flexible than npm ci)
-RUN npm install --omit=dev
-
-# Install Playwright browsers
-RUN npx playwright install chromium
+# Install dependencies (use lockfile for reproducibility)
+RUN npm ci --omit=dev
 
 # Copy application code
 COPY . .
