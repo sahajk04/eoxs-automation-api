@@ -2,7 +2,7 @@
   "name": "eoxs-ticket-dragger",
   "version": "1.0.0",
   "description": "Automated ticket dragging system for EOXS using Playwright",
-  "main": "eoxs_ticket_dragger.js",
+  "main": "server.js",
   "scripts": {
     "start": "node server.js",
     "dev": "node server.js",
