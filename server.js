@@ -39,6 +39,18 @@ app.get('/health', (req, res) => {
     });
 });
 
+// Debug endpoint to check environment variables
+app.get('/debug-env', (req, res) => {
+    res.json({
+        hasEoxsEmail: !!process.env.EOXS_EMAIL,
+        hasEoxsPassword: !!process.env.EOXS_PASSWORD,
+        nodeEnv: process.env.NODE_ENV,
+        headless: process.env.HEADLESS,
+        emailLength: process.env.EOXS_EMAIL ? process.env.EOXS_EMAIL.length : 0,
+        passwordLength: process.env.EOXS_PASSWORD ? process.env.EOXS_PASSWORD.length : 0
+    });
+});
+
 // Main endpoint to create EOXS ticket
 app.post('/create-ticket', async (req, res) => {
     try {
