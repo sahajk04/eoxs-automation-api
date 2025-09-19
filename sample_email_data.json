@@ -1,0 +1,107 @@
+{
+  "sample_emails": [
+    {
+      "id": 1,
+      "from": "user1@discountpipe.com",
+      "to": "support@eoxs.com",
+      "subject": "Login Issues - Cannot Access Dashboard",
+      "body": "Hi Support Team,\n\nI'm having trouble logging into my account. When I try to access the dashboard, I get an error message saying 'Invalid credentials' even though I'm sure my password is correct.\n\nCan you please help me resolve this issue?\n\nBest regards,\nJohn Doe\nDiscount Pipe & Steel",
+      "timestamp": "2024-01-15T10:30:00Z",
+      "priority": "medium",
+      "category": "authentication",
+      "customer": "Discount Pipe & Steel"
+    },
+    {
+      "id": 2,
+      "from": "jane.smith@client.com",
+      "to": "support@eoxs.com", 
+      "subject": "Password Reset Request",
+      "body": "Hello,\n\nI forgot my password and need to reset it. I tried using the 'Forgot Password' link but I'm not receiving the reset email.\n\nMy username is: jane.smith@client.com\n\nPlease assist.\n\nThanks,\nJane Smith",
+      "timestamp": "2024-01-15T14:45:00Z",
+      "priority": "high",
+      "category": "password_reset"
+    },
+    {
+      "id": 3,
+      "from": "mike.johnson@startup.io",
+      "to": "support@eoxs.com",
+      "subject": "Account Verification Needed",
+      "body": "Dear Support,\n\nI just signed up for a new account but haven't received the verification email. Could you please resend it or manually verify my account?\n\nEmail: mike.johnson@startup.io\nSign-up date: Today\n\nThank you!",
+      "timestamp": "2024-01-15T16:20:00Z",
+      "priority": "low",
+      "category": "account_setup"
+    },
+    {
+      "id": 4,
+      "from": "admin@enterprise.corp",
+      "to": "support@eoxs.com",
+      "subject": "System Access Problem - Urgent",
+      "body": "URGENT: Multiple users in our organization are unable to access the system. We're getting 500 errors when trying to load any page.\n\nThis is affecting our entire team of 50+ users.\n\nPlease prioritize this issue.\n\nContact: admin@enterprise.corp\nPhone: +1-555-0123",
+      "timestamp": "2024-01-15T09:15:00Z",
+      "priority": "critical",
+      "category": "system_outage"
+    },
+    {
+      "id": 5,
+      "from": "sarah.wilson@freelance.com",
+      "to": "support@eoxs.com",
+      "subject": "Feature Request - Export Functionality",
+      "body": "Hi there,\n\nI would like to request a new feature: the ability to export project data to CSV format. This would be very helpful for reporting purposes.\n\nIs this something that could be considered for a future release?\n\nBest,\nSarah Wilson",
+      "timestamp": "2024-01-15T11:00:00Z",
+      "priority": "low",
+      "category": "feature_request"
+    },
+    {
+      "id": 6,
+      "from": "testing@discountpipe.com",
+      "to": "support@eoxs.com",
+      "subject": "Testing",
+      "body": "This is a test email for the ticket dragger system. This email subject matches the default ticket title used in the script.\n\nTest details:\n- Default ticket title: 'Testing'\n- This should be found in the Resolved section\n- Should be moved to Tickets section\n\nEnd of test email.\n\nFrom: Discount Pipe & Steel",
+      "timestamp": "2024-01-15T12:00:00Z",
+      "priority": "low",
+      "category": "testing",
+      "customer": "Discount Pipe & Steel"
+    }
+  ],
+  "email_templates": {
+    "support_request": {
+      "subject_patterns": [
+        "Login Issues - {description}",
+        "Password Reset Request",
+        "Account Verification Needed", 
+        "System Access Problem - {urgency}",
+        "Cannot Access {feature}",
+        "Error Message: {error_code}"
+      ],
+      "common_issues": [
+        "Cannot Access Dashboard",
+        "Login Failed",
+        "Password Not Working",
+        "Account Locked",
+        "Two-Factor Authentication Issues",
+        "Session Timeout Problems"
+      ]
+    }
+  },
+  "test_scenarios": [
+    {
+      "scenario": "Default Test",
+      "ticket_title": "Testing",
+      "command": "node eoxs_ticket_dragger.js",
+      "description": "Uses the default 'Testing' ticket title"
+    },
+    {
+      "scenario": "Command Line Argument",
+      "ticket_title": "Login Issues - Cannot Access Dashboard", 
+      "command": "node eoxs_ticket_dragger.js 'Login Issues - Cannot Access Dashboard'",
+      "description": "Passes ticket title as command line argument"
+    },
+    {
+      "scenario": "Environment Variable",
+      "ticket_title": "Password Reset Request",
+      "setup": "export EMAIL_SUBJECT='Password Reset Request'",
+      "command": "node eoxs_ticket_dragger.js",
+      "description": "Uses EMAIL_SUBJECT environment variable"
+    }
+  ]
+}
